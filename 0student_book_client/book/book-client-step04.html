@@ -1,146 +1,129 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/form.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>도서 관리 시스템</title>
-  </head>
-  <body>
+    <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
     <h1>도서 관리 시스템</h1>
-
-    <div class="form-container">
-      <h2>도서 등록</h2>
-      <form id="bookForm">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="title">제목:</label>
-            <input type="text" name="title" id="title" />
-          </div>
-
-          <div class="form-group">
-            <label for="author">저자:</label>
-            <input type="text" name="author" id="author" />
-          </div>
-
-          <div class="form-group">
-            <label for="isbn">ISBN:</label>
-            <input type="text" name="isbn" id="isbn" />
-          </div>
-
-          <div class="form-group">
-            <label for="price">가격:</label>
-            <input type="text" name="price" id="price" />
-          </div>
-
-          <div class="form-group">
-            <label for="publishDate">출판일:</label>
-            <input type="date" name="publishDate" id="publishDate" />
-          </div>
-
-          <div class="form-group">
-            <label for="description">설명:</label>
-            <input type="text" name="description" id="description" />
-          </div>
-
-          <div class="form-group">
-            <label for="language">언어:</label>
-            <input type="text" name="language" id="language" />
-          </div>
-
-          <div class="form-group">
-            <label for="pageCount">페이지 수:</label>
-            <input type="number" name="pageCount" id="pageCount" min="1" />
-          </div>
-
-          <div class="form-group">
-            <label for="publisher">출판사:</label>
-            <input type="text" name="publisher" id="publisher" />
-          </div>
-
-          <div class="form-group">
-            <label for="coverImageUrl">표지 이미지 URL:</label>
-            <input type="text" name="coverImageUrl" id="coverImageUrl" />
-          </div>
-
-          <div class="form-group">
-            <label for="edition">판:</label>
-            <input type="text" name="edition" id="edition" />
-          </div>
-
-          <button type="submit">도서 등록</button>
-        </div>
-      </form>
+    
+    <div>
+        <h2>도서 등록</h2>
+        <form id="bookForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>제목:</label>
+                    <input type="text" name="title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>저자:</label>
+                    <input type="text" name="author" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ISBN:</label>
+                    <input type="text" name="isbn" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>가격:</label>
+                    <input type="number" name="price">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>출판일:</label>
+                    <input type="date" name="publishDate">
+                </div>
+                
+                <div class="form-group">
+                    <label>언어:</label>
+                    <input type="text" name="language">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>페이지 수:</label>
+                    <input type="number" name="pageCount">
+                </div>
+                
+                <div class="form-group">
+                    <label>출판사:</label>
+                    <input type="text" name="publisher">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>에디션:</label>
+                    <input type="text" name="edition">
+                </div>
+                
+                <div class="form-group">
+                    <label>표지 이미지 URL:</label>
+                    <input type="url" name="coverImageUrl">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>설명:</label>
+                <textarea name="description" rows="4" cols="50"></textarea>
+            </div>
+            
+            <button type="submit">도서 등록</button>
+        </form>
     </div>
-
-    <div class="table-container">
-      <h2>도서 목록</h2>
-      <table id="bookTable">
-        <thead>
-          <tr>
-            <th>제목</th>
-            <th>저자</th>
-            <th>ISBN</th>
-            <th>가격</th>
-            <th>출판일</th>
-            <th>설명</th>
-            <th>언어</th>
-            <th>페이지 수</th>
-            <th>출판사</th>
-            <th>표지</th>
-            <th>판</th>
-            <th>액션</th>
-          </tr>
-        </thead>
-        <tbody id="bookTableBody"></tbody>
-      </table>
+    
+    <div>
+        <h2>도서 목록</h2>
+        <table id="bookTable">
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>저자</th>
+                    <th>ISBN</th>
+                    <th>가격</th>
+                    <th>출판일</th>
+                    <th>출판사</th>
+                    <th>액션</th>
+                </tr>
+            </thead>
+            <tbody id="bookTableBody">
+            </tbody>
+        </table>
     </div>
-
+    
     <script>
-      //전역변수
-      const API_BASE_URL = "http://localhost:8080";
-
-      //DOM 엘리먼트 가져오기
-      const bookForm = document.getElementById("bookForm");
-      const bookTableBody = document.getElementById("bookTableBody");
-
-      //Document Load 이벤트 처리하기
-      document.addEventListener("DOMContentLoaded", function () {
-        loadBooks();
-      });
-
-      //Form Submit 이벤트 처리하기
-      bookForm.addEventListener("submit", function (event) {
-        //기본으로 설정된 Event가 동작하지 않도록 하기 위함
-        event.preventDefault();
-        console.log("Form 제출 되었음...");
-
-        //FormData 객체생성 <form>엘리먼트를 객체로 변환
-        const bookFormData = new FormData(bookForm);
-        bookFormData.forEach((value, key) => {
-          console.log(key + " = " + value);
+        // 전역 변수
+        const API_BASE_URL = 'http://localhost:8080';
+        
+        // DOM 요소 참조
+        const bookForm = document.getElementById('bookForm');
+        const bookTableBody = document.getElementById('bookTableBody');
+        
+        // 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('페이지 로드 완료');
+            loadBooks();
         });
-
-        const bookData = {
-          title: bookFormData.get("title").trim(),
-          author: bookFormData.get("author").trim(),
-          isbn: bookFormData.get("isbn").trim(),
-          price: parseInt(bookFormData.get("price")) || 0,
-          publishDate: bookFormData.get("publishDate"),
-          detailRequest: {
-            description: bookFormData.get("description")?.trim() || "",
-            language: bookFormData.get("language")?.trim() || "",
-            pageCount: parseInt(bookFormData.get("pageCount")) || 0,
-            publisher: bookFormData.get("publisher")?.trim() || "",
-            coverImageUrl: bookFormData.get("coverImageUrl")?.trim() || "",
-            edition: bookFormData.get("edition")?.trim() || "",
-          },
-        };
-      });
-
-      function loadBooks() {
-        console.log("도서 목록 로드 중.....");
-      }
+        
+        // 폼 제출 이벤트 핸들러
+        bookForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('폼 제출됨');
+        });
+        
+        // 도서 목록 로드 함수
+        function loadBooks() {
+            console.log('도서 목록 로드 중...');
+        }
     </script>
-  </body>
+</body>
 </html>
