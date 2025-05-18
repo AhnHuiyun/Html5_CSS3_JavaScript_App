@@ -271,6 +271,7 @@ function editStudent(studentId) {
         });
 
 }
+
 // 수정 모드에서 등록 모드로 초기화 하는 함수
 function resetForm() {
     //form 초기화
