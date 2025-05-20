@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서 관리 시스템</title>
+    <link rel="stylesheet" href="css/form_search_bookdetail.css">
+</head>
+<body>
+    <h1>도서 관리 시스템</h1>
+    
+    <div class="container">
+        <h2>새 도서 추가</h2>
+        <form id="bookForm">
+            <!-- 기본 도서 정보 -->
+            <div class="form-section">
+                <h3>기본 정보</h3>
+                <div class="form-grid">
+                    <input type="text" id="title" placeholder="제목" required>
+                    <input type="text" id="author" placeholder="저자" required>
+                    <input type="text" id="isbn" placeholder="ISBN" required>
+                    <input type="number" id="price" placeholder="가격" min="0">
+                    <input type="date" id="publishDate" placeholder="출간일">
+                </div>
+            </div>
+            
+            <!-- 도서 상세 정보 -->
+            <div class="form-section">
+                <h3>상세 정보 (선택사항)</h3>
+                <div class="form-grid">
+                    <textarea id="description" placeholder="도서 설명" rows="3"></textarea>
+                    <input type="text" id="language" placeholder="언어">
+                    <input type="number" id="pageCount" placeholder="페이지 수" min="1">
+                    <input type="text" id="publisher" placeholder="출판사">
+                    <input type="url" id="coverImageUrl" placeholder="표지 이미지 URL">
+                    <input type="text" id="edition" placeholder="판">
+                </div>
+            </div>
+            
+            <button type="submit">도서 추가</button>
+        </form>
+    </div>
+    
+    <div class="container">
+        <h2>도서 검색</h2>
+        <div class="search-bar">
+            <input type="text" id="searchTitle" placeholder="제목으로 검색">
+            <input type="text" id="searchAuthor" placeholder="저자로 검색">
+            <input type="text" id="searchPublisher" placeholder="출판사로 검색">
+            <button id="searchBtn">검색</button>
+            <button id="showAllBtn">전체 보기</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>도서 목록</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>제목</th>
+                    <th>저자</th>
+                    <th>ISBN</th>
+                    <th>가격</th>
+                    <th>출간일</th>
+                    <th>출판사</th>
+                    <th>페이지</th>
+                    <th>액션</th>
+                </tr>
+            </thead>
+            <tbody id="booksTableBody">
+                <!-- 도서 목록이 여기에 표시됩니다 -->
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- 상세 정보 모달 -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="detailModalClose">&times;</span>
+            <h2>도서 상세 정보</h2>
+            <div id="bookDetailContent">
+                <!-- 상세 정보가 여기에 표시됩니다 -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- 수정 모달 -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="editModalClose">&times;</span>
+            <h2>도서 수정</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                
+                <!-- 기본 정보 수정 -->
+                <div class="form-section">
+                    <h3>기본 정보</h3>
+                    <div class="form-grid">
+                        <input type="text" id="editTitle" placeholder="제목" required>
+                        <input type="text" id="editAuthor" placeholder="저자" required>
+                        <input type="text" id="editIsbn" placeholder="ISBN" required>
+                        <input type="number" id="editPrice" placeholder="가격" min="0">
+                        <input type="date" id="editPublishDate">
+                    </div>
+                </div>
+                
+                <!-- 상세 정보 수정 -->
+                <div class="form-section">
+                    <h3>상세 정보</h3>
+                    <div class="form-grid">
+                        <textarea id="editDescription" placeholder="도서 설명" rows="3"></textarea>
+                        <input type="text" id="editLanguage" placeholder="언어">
+                        <input type="number" id="editPageCount" placeholder="페이지 수" min="1">
+                        <input type="text" id="editPublisher" placeholder="출판사">
+                        <input type="url" id="editCoverImageUrl" placeholder="표지 이미지 URL">
+                        <input type="text" id="editEdition" placeholder="판">
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button type="submit">도서 수정</button>
+                    <button type="button" onclick="BookManager.closeEditModal()">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/form_search_bookdetail.js"></script>
+</body>
+</html>
